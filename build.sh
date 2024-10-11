@@ -3,7 +3,8 @@
 set -e
 
 # RootFS variables
-ROOTFS="alpine-minirootfs"
+#ROOTFS="alpine-minirootfs"
+ROOTFS="buildroot/output/images/rootfs"
 CACHEPATH="$ROOTFS/var/cache/apk/"
 SHELLHISTORY="$ROOTFS/root/.ash_history"
 DEVCONSOLE="$ROOTFS/dev/console"
@@ -11,8 +12,8 @@ MODULESPATH="$ROOTFS/lib/modules/"
 DEVURANDOM="$ROOTFS/dev/urandom"
 
 # Kernel variables
-KERNELVERSION="4.14.22-onefile"
-KERNELPATH="linux-4.14.22"
+KERNELVERSION="mainline-onefile"
+KERNELPATH="linux"
 export INSTALL_MOD_PATH="../$ROOTFS/"
 
 # Macbook 2015-2017 SPI keyboard driver
@@ -34,6 +35,13 @@ echo "  | \__/'---'\__/ | "
 echo "  |_______________| "
 echo "                    "
 echo "   OneFileLinux.efi "
+
+
+# buildroot/linux
+# Use 'Make menuconfig' to configure buildroot and linux to your liking or select a .config in cfg/
+# run the lk-reducer
+# run kernel-hardening-checker if needed.
+# build
 
 ##########################
 # Checking root filesystem
