@@ -7,3 +7,6 @@
 [submodule "lk-reducer"]
 	path = lk-reducer
 	url = https://github.com/threader/lk-reducer
+[submodule "linux"]
+	path = linux
+	url = https://github.com/torvalds/linux
