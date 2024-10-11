@@ -1,9 +1,12 @@
 ## One File Linux
-Live linux distro combined in one ~20MB file. Runs on any UEFI computer (PC or Mac) without installation. Just copy one file to EFI system partition and boot.
+~~ Live linux distro combined in one ~20MB file. ~~ 
+This will attempt to build a 'minimal' Buildroot Linux userland and a mainline Linux kernel with patches from [GraphenOS's](https://github.com/GrapheneOS/linux-hardened), how much space you'r end .efi file depends on what you include.  
+Runs on any UEFI computer (PC or Mac) without installation. Just copy one file to EFI system partitio and boot.
 
 <img width=600 alt="One File Linux" src="https://hub.zhovner.com/img/one-file-linux.png" />
 
-**Download:** https://github.com/zhovner/OneFileLinux/releases
+~~ **Download:** https://github.com/zhovner/OneFileLinux/releases ~~
+I probably wont do _many_ releases. Only stable milestones and PoC. 
 
 About in russian: https://habrahabr.ru/post/349758/
 ### Main advantages
@@ -20,8 +23,10 @@ About in russian: https://habrahabr.ru/post/349758/
 
 ### Why?
 
-This can be useful when you need Linux on bare metal and can't use USB flash. In comparison with Live USB flash, one file Linux setups permanently in EFI partition and can boot any time later.  
-My personal goal is to use laptop's internal PCIe WiFi card for cracking WiFi with <b>aircrack-ng</b> and <b>reaver</b> software, since PCIe devices can't be forwarded into virtual machine. 
+Because we can? (Thank you original author btw! - and theregister.co.uk for the article on OFL!)
+
+This can be useful when you need Linux on bare metal, say in case of emergency, to boot/chroot further into encrypted volumes and images etc. for securely booting.
+. In comparison with Live USB flash, one file Linux setups permanently in EFI partition and can boot any time later.  
 
   
 ## Run on Macbook
@@ -123,15 +128,20 @@ Then format drive from `diskmgmt.msc` in FAT32.
 ## Build your own 
 
 You can build your own version of One File Linux.  
-It based on Alpine Linux and vanilla kernel.  
-
+It based on Buildroot Linux and Linus Torvald's kernel with hardening patches from [GraphenOS's](https://github.com/GrapheneOS) linux-hardened most by Daniel Micay as sorted by author, but also Serge Hallyn and  mr. 'anthraxx'.
 1. Clone repositry  
-`git clone https://github.com/zhovner/OneFileLinux`
+`git clone https://github.com/threader/OneFileLinux`
 
-2. Make changes in root filesystem and kernel  
-`chroot alpine-minirootfs /bin/ash`
+2. Set up Buildroot and Linux desired kernel .config - either manually or trough 'make menuconfig' 
 
-3. Build  
+3. Run the kernel-hardening-checker followed by lk-reducer
+
+4. Run the Buildroot build. - i will fix build.sh to do this when things are clear
+
+#5. Make changes in root filesystem and kernel 
+#`chroot output/images /bin/ash`
+
+#5. Build  
 `./build.sh`
 
 ## Virtual Machine ready to go build environment
