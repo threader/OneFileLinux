@@ -4,7 +4,8 @@ set -e
 
 # RootFS variables
 #ROOTFS="alpine-minirootfs"
-ROOTFS="buildroot/output/images/rootfs"
+BUILDROOT="$PWD/buildroot"
+ROOTFS="$PWD/buildroot/output/images/rootfs"
 CACHEPATH="$ROOTFS/var/cache/apk/"
 SHELLHISTORY="$ROOTFS/root/.ash_history"
 DEVCONSOLE="$ROOTFS/dev/console"
@@ -42,6 +43,17 @@ echo "   OneFileLinux.efi "
 # run the lk-reducer
 # run kernel-hardening-checker if needed.
 # build
+
+#
+if [ ! -e $BUILDROOT/.config ]; then
+    echo -e "ERROR: no buildroot/.config found, check $PWD/cfg or run 'make manuconfig'"
+    exit 1
+ else
+cd $BUILDROOT; make
+fi
+
+#
+#
 
 ##########################
 # Checking root filesystem
