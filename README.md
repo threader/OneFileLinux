@@ -1,7 +1,5 @@
 ## One File Linux
-~~Live linux distro combined in one ~20MB file.~~
- 
-This will attempt to build a 'minimal' Buildroot Linux userland toolset and a mainline Linux kernel with patches from [GraphenOS's](https://github.com/GrapheneOS/linux-hardened), how much space your end .efi file depends on what you include and is limited by the FS the .efi lives on, with say Rufus NTFS efi, you could run your life from it.
+This will attempt to provide a configurable buildable 'minimal' Buildroot Linux userland toolset and a mainline Linux kernel with patches from [GraphenOS's](https://github.com/GrapheneOS/linux-hardened), how much space your end .efi file depends on what you include and is limited by the FS the .efi lives on, with say Rufus NTFS .efi driver and similar, you could run (or save) your life from it.
 
 Runs on any UEFI computer (PC or Mac) without installation. Just copy the .efi file to EFI system partitio and boot.
 
@@ -25,7 +23,7 @@ About in russian: https://habrahabr.ru/post/349758/
 
 ### Why?
 
-Because we can? (Thank you original author btw! - and theregister.co.uk for the article on OFL!)
+Because we can? (Thank you original author btw! - and [theregister.co.uk](https://www.theregister.com/2024/09/09/onefilelinux_esp_distro/) for that article, I would never have known about OFL w/o.)
 
 This can be useful when you need Linux on bare metal, in case of emergency, to boot/chroot further into encrypted volumes and images etc. file hashing for securely booting onwards etc.
 
@@ -100,18 +98,20 @@ You can do this with OneFileLinux.efi run from USB flash or any other linux dist
 
 #### 2. Add NVRAM boot option
 
-I can't find out how to do this in Windows, so you probably need Linux for this.  
-Replace `/dev/sda` to you disk path and `--part 2` to your EFI partition number.  
+Read [https://oofhours.com/2019/10/05/working-with-uefi-variables-from-powershell/](Working with UEFI variables from PowerShell) and [https://learn.microsoft.com/en-us/windows-hardware/drivers/devtest/editing-boot-options-in-efi](Editing Boot Options in EFI) for Windows. _UNVERIFIED by me_
+
+On Linux, replace `/dev/sda` to you disk path and `--part 2` to your EFI partition number.  
   
 `efibootmgr --disk /dev/sda --part 2 --create --label "One File Linux" --loader /OneFileLinux.efi`
 
 #### 3. Choose One File Linux from boot menu
 
-On my ThinkPad X220 I press F12 while power on to open boot menu. Hotkey depends on your motherboard.  
+On a ThinkPad X220, press F12 while power on to open boot menu. Hotkey depends on your motherboard.  
   
 <img alt="ThinkPad X220 boot menu" width="600" src="https://hub.zhovner.com/img/thinkpad-x220-boot-menu.png" />
 
 
+On HP it's F9.
 
 ## Run from USB flash
 The only benefit from running OneFileLinux from USB flash, is that no additional software is required to create bootable flash drive.  
@@ -154,6 +154,7 @@ It based on Buildroot Linux and Linus Torvald's kernel with hardening patches fr
 #5. Build  
 `./build.sh`
 
+* NB: I threader will not be maintaining the following:
 ## Virtual Machine ready to go build environment
 You can download vm image with completely configured environment.  
 Torrent file: [kali64.vmwarevm.7z.torrent](https://github.com/zhovner/OneFileLinux/blob/master/kali64.vmwarevm.7z.torrent)  
