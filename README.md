@@ -1,7 +1,9 @@
 ## One File Linux
-~~ Live linux distro combined in one ~20MB file. ~~ 
-This will attempt to build a 'minimal' Buildroot Linux userland and a mainline Linux kernel with patches from [GraphenOS's](https://github.com/GrapheneOS/linux-hardened), how much space you'r end .efi file depends on what you include.  
-Runs on any UEFI computer (PC or Mac) without installation. Just copy one file to EFI system partitio and boot.
+~~Live linux distro combined in one ~20MB file.~~
+ 
+This will attempt to build a 'minimal' Buildroot Linux userland toolset and a mainline Linux kernel with patches from [GraphenOS's](https://github.com/GrapheneOS/linux-hardened), how much space your end .efi file depends on what you include and is limited by the FS the .efi lives on, with say Rufus NTFS efi, you could run your life from it.
+
+Runs on any UEFI computer (PC or Mac) without installation. Just copy the .efi file to EFI system partitio and boot.
 
 <img width=600 alt="One File Linux" src="https://hub.zhovner.com/img/one-file-linux.png" />
 
@@ -25,11 +27,13 @@ About in russian: https://habrahabr.ru/post/349758/
 
 Because we can? (Thank you original author btw! - and theregister.co.uk for the article on OFL!)
 
-This can be useful when you need Linux on bare metal, say in case of emergency, to boot/chroot further into encrypted volumes and images etc. for securely booting.
-. In comparison with Live USB flash, one file Linux setups permanently in EFI partition and can boot any time later.  
+This can be useful when you need Linux on bare metal, in case of emergency, to boot/chroot further into encrypted volumes and images etc. file hashing for securely booting onwards etc.
+
+In comparison with Live USB flash, OneFileLinux lives permanently in EFI partition and can boot at any time later in a hardend read only env.  
 
   
 ## Run on Macbook
+* NB: I threader, don not have a MacBook.
 
 #### 1. Download OneFileLinux.efi from link above.  
   
@@ -73,20 +77,26 @@ This command sets NVRAM option to boot OneFileLinux.efi only once. Next reboot w
   
 ### 5. Reboot 
 
-Reboot to run OneFileLinux. Once you've done, type `reboot` in Linux console and go back to macOS.   
+Reboot to run OneFileLinux. Once you've done, type `reboot` in Linux console and go back to you'r OS. 
 Every time when you need it again, follow steps 2 and 4 from recovery console.
 
 
 
 ## Run on PC
-There are few ways how to run OneFileLinux on PC motherboard. Some motherboards have builtin UEFI Shell that can run any efi binary from console.  
+There are few ways how to run OneFileLinux on PC motherboard. Some motherboards have builtin UEFI Shell that can run any efi binary from console.
+Some laptops, HP in particular, has a nice .efi file browser if you hit F9, no idea about the current state of that.
 I will describe setup process for my old ThinkPad X220 that doesn't have UEFI shell. 
+It can also be run via GRUB. 
 
 #### 1. Copy OneFileLinux.efi to EFI partition 
   
 If you use Windows 10 installed in EFI mode, you have EFI system partition 100 MB in size.  
-You need to find out how to mount by itself. You can do this with OneFileLinux.efi run from USB flash or any other linux distro.
+You can mount the ESD/EFI partition to w: using this PowerShell command:
+'''
+mountvol w: /S
+'''
 
+You can do this with OneFileLinux.efi run from USB flash or any other linux distro.
 
 #### 2. Add NVRAM boot option
 
