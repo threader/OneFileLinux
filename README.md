@@ -1,12 +1,12 @@
 ## One File Linux
-This will attempt to provide a configurable buildable 'minimal' Buildroot Linux userland toolset and a mainline Linux kernel with patches from [GraphenOS's](https://github.com/GrapheneOS/linux-hardened), how much space your end .efi file depends on what you include and is limited by the FS the .efi lives on, with say Rufus NTFS .efi driver and similar, you could run (or save) your life from it.
+This will attempt to provide a configurable 'minimal' Buildroot Linux userland toolset and a mainline Linux kernel with patches from [GraphenOS's](https://github.com/GrapheneOS/linux-hardened), how much space your end .efi file depends on what you include and is limited by the FS the .efi lives on, with say Rufus NTFS .efi driver and similar, you could run (or save) your life from it.
 
 Runs on any UEFI computer (PC or Mac) without installation. Just copy the .efi file to EFI system partitio and boot.
 
 <img width=600 alt="One File Linux" src="https://hub.zhovner.com/img/one-file-linux.png" />
 
-~~ **Download:** https://github.com/zhovner/OneFileLinux/releases ~~
-I probably wont do _many_ releases. Only stable milestones and PoC. 
+**Download:** https://github.com/zhovner/OneFileLinux/releases
+* NB: I, threader, will probably wont do _many_ releases. Only stable milestones and PoC. 
 
 About in russian: https://habrahabr.ru/post/349758/
 ### Main advantages
@@ -98,7 +98,7 @@ You can do this with OneFileLinux.efi run from USB flash or any other linux dist
 
 #### 2. Add NVRAM boot option
 
-Read [https://oofhours.com/2019/10/05/working-with-uefi-variables-from-powershell/](Working with UEFI variables from PowerShell) and [https://learn.microsoft.com/en-us/windows-hardware/drivers/devtest/editing-boot-options-in-efi](Editing Boot Options in EFI) for Windows. _UNVERIFIED by me_
+Read [Working with UEFI variables from PowerShell](https://oofhours.com/2019/10/05/working-with-uefi-variables-from-powershell/) and [Editing Boot Options in EFI](https://learn.microsoft.com/en-us/windows-hardware/drivers/devtest/editing-boot-options-in-efi) for Windows. _UNVERIFIED by me!_
 
 On Linux, replace `/dev/sda` to you disk path and `--part 2` to your EFI partition number.  
   
@@ -109,7 +109,6 @@ On Linux, replace `/dev/sda` to you disk path and `--part 2` to your EFI partiti
 On a ThinkPad X220, press F12 while power on to open boot menu. Hotkey depends on your motherboard.  
   
 <img alt="ThinkPad X220 boot menu" width="600" src="https://hub.zhovner.com/img/thinkpad-x220-boot-menu.png" />
-
 
 On HP it's F9.
 
@@ -135,10 +134,12 @@ Then format drive from `diskmgmt.msc` in FAT32.
 
 
 
-## Build your own 
+## Building:
 
-You can build your own version of One File Linux.  
-It based on Buildroot Linux and Linus Torvald's kernel with hardening patches from [GraphenOS's](https://github.com/GrapheneOS) linux-hardened most by Daniel Micay as sorted by author, but also Serge Hallyn and  mr. 'anthraxx'.
+Building your own version of One File Linux.  
+
+This version of OFL is based on Buildroot Linux and Linus Torvald's kernel with hardening patches from [https://github.com/GrapheneOS](GraphenOS's) linux-hardened most by Daniel Micay, but also Serge Hallyn and  mr. 'anthraxx'.
+
 1. Clone repositry  
 `git clone https://github.com/threader/OneFileLinux`
 
@@ -153,17 +154,3 @@ It based on Buildroot Linux and Linus Torvald's kernel with hardening patches fr
 
 #5. Build  
 `./build.sh`
-
-* NB: I threader will not be maintaining the following:
-## Virtual Machine ready to go build environment
-You can download vm image with completely configured environment.  
-Torrent file: [kali64.vmwarevm.7z.torrent](https://github.com/zhovner/OneFileLinux/blob/master/kali64.vmwarevm.7z.torrent)  
-VMware Player/Workstation or VMware Fusion recommended.  
-Username: root  
-Password: toor  
-
-Just login and run:
-```
-cd /root/onefilelinux/
-./build.sh
-```
