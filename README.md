@@ -1,7 +1,7 @@
 ## One File Linux
 This will attempt to provide a configurable 'minimal' Buildroot Linux userland toolset and a mainline Linux kernel with patches from [GraphenOS's](https://github.com/GrapheneOS/linux-hardened), how much space your end .efi file depends on what you include and is limited by the FS the .efi lives on, with say Rufus NTFS .efi driver and similar, you could run (or save) your life from it.
 
-Runs on any UEFI computer (PC or Mac) without installation. Just copy the .efi file to EFI system partitio and boot.
+Runs on any UEFI computer (PC or Mac) without installation. Just copy the .efi file to ESD/EFI system partition and boot.
 
 <img width=600 alt="One File Linux" src="https://hub.zhovner.com/img/one-file-linux.png" />
 
@@ -141,7 +141,14 @@ Building your own version of One File Linux.
 This version of OFL is based on Buildroot Linux and Linus Torvald's kernel with hardening patches from [https://github.com/GrapheneOS](GraphenOS's) linux-hardened most by Daniel Micay, but also Serge Hallyn and  mr. 'anthraxx'.
 
 1. Clone repositry  
-`git clone https://github.com/threader/OneFileLinux`
+```
+git clone https://github.com/threader/OneFileLinux
+
+# Grab the submodules:
+git submodule update --init --recursive
+# To grab updates later on.
+git submodule update --recursive --remote
+'''
 
 2. Set up Buildroot and Linux desired kernel .config - either manually or trough 'make menuconfig' 
 
