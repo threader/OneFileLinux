@@ -1,7 +1,7 @@
 [submodule "buildroot"]
 	path = buildroot
 	url = https://github.com/threader/buildroot
-	branch = main_ofl
+	branch = master_ofl
 [submodule "kernel-hardening-checker"]
 	path = kernel-hardening-checker
 	url = https://github.com/threader/kernel-hardening-checker
