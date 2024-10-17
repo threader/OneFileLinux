@@ -40,6 +40,7 @@ echo "   OneFileLinux.efi "
 
 # buildroot/linux
 # Use 'Make menuconfig' to configure buildroot and linux to your liking or select a .config in cfg/
+# cd buildroot; make -j$THREADS
 # run the lk-reducer
 # run kernel-hardening-checker if needed.
 # build
@@ -49,7 +50,7 @@ if [ ! -e $BUILDROOT/.config ]; then
     echo -e "ERROR: no buildroot/.config found, check $PWD/cfg or run 'make manuconfig'"
     exit 1
  else
-cd $BUILDROOT; make
+cd $BUILDROOT; make -j$THREADS
 fi
 
 #
