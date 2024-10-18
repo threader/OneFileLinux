@@ -142,7 +142,7 @@ Building One File Linux.
 
 This version of OFL is based on Buildroot Linux and Linus Torvald's kernel with hardening patches from [https://github.com/GrapheneOS](GraphenOS's) linux-hardened most by Daniel Micay, but also Serge Hallyn and  mr. 'anthraxx'.
 
-The build will default to "CFLAGS=-mcpu=host -mtune=host" and that will need to be changed in the buildroot config if you are building for a different system then the one you are building on.
+The build will default to "CFLAGS=-march=native -mcpu=native -mtune=native" and that will need to be changed in the buildroot config if you are building for a different system then the one you are building on.
 
 1. Clone repositry  
 ```console
