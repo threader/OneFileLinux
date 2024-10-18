@@ -138,19 +138,21 @@ Then format drive from `diskmgmt.msc` in FAT32.
 
 ## Building:
 
-Building your own version of One File Linux.  
+Building One File Linux.  
 
 This version of OFL is based on Buildroot Linux and Linus Torvald's kernel with hardening patches from [https://github.com/GrapheneOS](GraphenOS's) linux-hardened most by Daniel Micay, but also Serge Hallyn and  mr. 'anthraxx'.
 
+The build will default to "CFLAGS=-mcpu=host -mtune=host" and that will need to be changed in the buildroot config if you are building for a different system then the one you are building on.
+
 1. Clone repositry  
-```
+```console
 git clone https://github.com/threader/OneFileLinux
 
 # Grab the submodules:
 git submodule update --init --recursive
-# To grab updates later on.
+# To pull updates later on.
 git submodule update --recursive --remote
-'''
+```
 
 2. Set up Buildroot and Linux desired kernel .config - either manually or trough 'make menuconfig' 
 
