@@ -84,7 +84,9 @@ Every time when you need it again, follow steps 2 and 4 from recovery console.
 There are few ways how to run OneFileLinux on PC motherboard. Some motherboards have builtin UEFI Shell that can run any efi binary from console.
 Some laptops, HP in particular, has a nice .efi file browser if you hit F9, no idea about the current state of that.
 I will describe setup process for my old ThinkPad X220 that doesn't have UEFI shell. 
-It can also be run via GRUB. 
+It can also be run via GRUB.
+
+Disabling Secure Boot can be a bit of a hastle and has to be done correctly, best read https://wiki.ubuntu.com/UEFI/SecureBoot/DKMS and pay attention.
 
 #### 1. Copy OneFileLinux.efi to EFI partition 
   
