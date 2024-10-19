@@ -42,13 +42,13 @@ echo "   OneFileLinux.efi "
 # Use 'Make menuconfig' to configure buildroot and linux to your liking or select a .config in cfg/
 # cd buildroot; make -j$THREADS
 # run kernel-hardening-checker if needed.
-./kernel-hardening-checker/bin/kernel-hardening-checker -c cfg/linux_x86_64 -l /proc/cmdline -s kernel_hardening_checker/config_files/distros/example_sysctls.txt
-# run the lk-reducer
+#./kernel-hardening-checker/bin/kernel-hardening-checker -c cfg/linux_x86_64 -l /proc/cmdline -s kernel-hardening-checker/kernel_hardening_checker/config_files/distros/example_sysctls.txt
+# run the lk-reducer - the linux_x86_64 config is taken straight from Debian Testing so that will need to be configured better... 
 # configure and hopefully run
 
 #
 if [ ! -e $BUILDROOT/.config ]; then
-    echo -e "ERROR: no buildroot/.config found, check "$(PWD)"/cfg or run 'make manuconfig'"
+    echo -e "ERROR: no buildroot/.config found, copy "$(PWD)"/cfg/buildroot_x86_64 or run 'make manuconfig' in buildroot to create your own!"
     exit 1
  else
 cd $BUILDROOT; make -j$THREADS
