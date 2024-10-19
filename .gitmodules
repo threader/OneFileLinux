@@ -7,7 +7,7 @@
 	url = https://github.com/a13xp0p0v/kernel-hardening-checker
 [submodule "lk-reducer"]
 	path = lk-reducer
-	url = https://github.com/threader/lk-reducer
+	url = https://github.com/jduck/lk-reducer
 [submodule "hardened_malloc"]
 	path = hardened_malloc
 	url = https://github.com/GrapheneOS/hardened_malloc.git
