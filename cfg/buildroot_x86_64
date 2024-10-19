@@ -652,7 +652,7 @@ BR2_PACKAGE_KVM_UNIT_TESTS_ARCH_SUPPORTS=y
 #
 # kyua needs a toolchain w/ C++, dynamic library and full Lua
 #
-BR2_PACKAGE_LATENCYTOP=y
+# BR2_PACKAGE_LATENCYTOP is not set
 # BR2_PACKAGE_LIBBPF is not set
 # BR2_PACKAGE_LIBTRACEEVENT is not set
 # BR2_PACKAGE_LIBTRACEFS is not set
