@@ -42,6 +42,7 @@ echo "   OneFileLinux.efi "
 # Use 'Make menuconfig' to configure buildroot and linux to your liking or select a .config in cfg/
 # cd buildroot; make -j$THREADS
 # run kernel-hardening-checker if needed.
+./kernel-hardening-checker/bin/kernel-hardening-checker -c cfg/linux_x86_64 -l /proc/cmdline -s kernel_hardening_checker/config_files/distros/example_sysctls.txt
 # run the lk-reducer
 # configure and hopefully run
 

@@ -4,7 +4,7 @@
 	branch = master_ofl
 [submodule "kernel-hardening-checker"]
 	path = kernel-hardening-checker
-	url = https://github.com/threader/kernel-hardening-checker
+	url = https://github.com/a13xp0p0v/kernel-hardening-checker
 [submodule "lk-reducer"]
 	path = lk-reducer
 	url = https://github.com/threader/lk-reducer
