@@ -5,7 +5,7 @@ set -e
 # RootFS variables
 #ROOTFS="alpine-minirootfs"
 BUILDROOT="$PWD/buildroot"
-ROOTFS="$PWD/buildroot/output/images/rootfs"
+ROOTFS="$PWD/$BUILDROOT/output/target"
 CACHEPATH="$ROOTFS/var/cache/apk/"
 SHELLHISTORY="$ROOTFS/root/.ash_history"
 DEVCONSOLE="$ROOTFS/dev/console"
@@ -13,7 +13,7 @@ MODULESPATH="$ROOTFS/lib/modules/"
 DEVURANDOM="$ROOTFS/dev/urandom"
 
 # Kernel variables
-KERNELVERSION="mainline-onefile"
+KERNELVERSION="mainline_hardened_ofl"
 KERNELPATH="linux"
 export INSTALL_MOD_PATH="../$ROOTFS/"
 
@@ -41,13 +41,13 @@ echo "   OneFileLinux.efi "
 # buildroot/linux
 # Use 'Make menuconfig' to configure buildroot and linux to your liking or select a .config in cfg/
 # cd buildroot; make -j$THREADS
-# run the lk-reducer
 # run kernel-hardening-checker if needed.
-# build
+# run the lk-reducer
+# configure and hopefully run
 
 #
 if [ ! -e $BUILDROOT/.config ]; then
-    echo -e "ERROR: no buildroot/.config found, check $PWD/cfg or run 'make manuconfig'"
+    echo -e "ERROR: no buildroot/.config found, check "$(PWD)"/cfg or run 'make manuconfig'"
     exit 1
  else
 cd $BUILDROOT; make -j$THREADS
