@@ -1474,7 +1474,7 @@ BR2_PACKAGE_XCURSOR_TRANSPARENT_THEME=y
 # vte needs an OpenGL or an OpenGL-EGL backend
 #
 # BR2_PACKAGE_WMCTRL is not set
-BR2_PACKAGE_X11VNC=y
+# BR2_PACKAGE_X11VNC is not set
 # BR2_PACKAGE_XDOTOOL is not set
 
 #
