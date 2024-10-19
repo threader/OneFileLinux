@@ -1376,7 +1376,7 @@ BR2_PACKAGE_XDRIVER_XF86_VIDEO_INTEL=y
 #
 # xf86-video-nouveau needs an OpenGL backend
 #
-BR2_PACKAGE_XDRIVER_XF86_VIDEO_NV=y
+# BR2_PACKAGE_XDRIVER_XF86_VIDEO_NV is not set
 
 #
 # xf86-video-openchrome needs an OpenGL backend
