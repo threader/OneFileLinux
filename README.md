@@ -144,6 +144,8 @@ This version of OFL is based on Buildroot Linux and Linus Torvald's kernel with 
 
 The build will default to "CFLAGS=-march=native -mcpu=native -mtune=native" and that will need to be changed in the buildroot config if you are building for a different system then the one you are building on.
 
+Buildroot handles grabbing the kernel sources and the linux/ that used to live here is now a symlink to the buildroot output directory.
+
 Requires the Debian package: libelf-dev
 
 1. Clone repositry  
