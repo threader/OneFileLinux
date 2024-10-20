@@ -140,13 +140,14 @@ Then format drive from `diskmgmt.msc` in FAT32.
 
 Building One File Linux.  
 
-This version of OFL is based on Buildroot Linux and Linus Torvald's kernel with hardening patches from [https://github.com/GrapheneOS](GraphenOS's) linux-hardened most by Daniel Micay, but also Serge Hallyn and  mr. 'anthraxx'.
+This version of OFL is based on Buildroot Linux and Linus Torvald's kernel with hardening patches from [https://github.com/GrapheneOS](GraphenOS's) linux-hardened most by Daniel Micay, but also Serge Hallyn and  mr. 'anthraxx' and others.
 
 The build will default to "CFLAGS=-march=native -mcpu=native -mtune=native" and that will need to be changed in the buildroot config if you are building for a different system then the one you are building on.
 
 Buildroot handles grabbing the kernel sources and the linux/ that used to live here is now a symlink to the buildroot output directory.
+I optet to symlink buildroot/dl/linux/git/.git to linux/.git , hopefully to aid rapid development , as the sources buildroot actuelly uses to build are in buildroot/output/build/linux-main_ofl/ - setup.sh is suppsed to run sometime after buildroot has gotten the sources and symlink this in place?
 
-Requires the Debian package: libelf-dev
+Requires the Debian package: libelf-dev libopenssl-dev
 
 1. Clone repositry  
 ```console

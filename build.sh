@@ -51,6 +51,7 @@ if [ ! -e $BUILDROOT/.config ]; then
     echo -e "ERROR: no buildroot/.config found, copy "$(PWD)"/cfg/buildroot_x86_64 or run 'make manuconfig' in buildroot to create your own!"
     exit 1
  else
+. setup.sh
 cd $BUILDROOT; make -j$THREADS
 fi
 
