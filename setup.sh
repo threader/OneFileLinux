@@ -1,5 +1,5 @@
 #!/bin/bash
 
 if [ ! -e linux/.git ]; then
- ln -s ./buildroot/dl/linux/git ./linux/.git
+ ln -s $PWD/buildroot/dl/linux/git $PWD/linux/.git
 fi

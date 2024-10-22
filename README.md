@@ -160,6 +160,7 @@ git submodule update --recursive --remote
 ```
 
 2. Set up Buildroot and Linux desired kernel .config - either manually or trough 'make menuconfig' 
+	* I think i will split this into two parts, one for a base .cpio and one for an ext4 image that can be mapped via GRUB.
 
 3. Run the kernel-hardening-checker followed by lk-reducer
 
