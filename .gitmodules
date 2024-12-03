@@ -12,5 +12,5 @@
 	path = hardened_malloc
 	url = https://github.com/GrapheneOS/hardened_malloc.git
 [submodule "llvm-project-deluge"]
-        path = llvm-project-deluge
-        url = https://github.com/pizlonator/llvm-project-deluge.git
+	path = llvm-project-deluge
+	url = https://github.com/pizlonator/llvm-project-deluge.git
