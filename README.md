@@ -1,7 +1,7 @@
 ## One File Linux
 This will attempt to provide a configurable 'minimal' Buildroot Linux userland toolset and a mainline Linux kernel with patches from [GraphenOS's](https://github.com/GrapheneOS/linux-hardened), how much space your end .efi file depends on what you include and is limited by the FS the .efi lives on, with say Rufus NTFS .efi driver and similar, you could run (or save) your life from it.
 
-Runs on any UEFI computer (PC or Mac) with minimal effort. Since this project has diverged a bit from the original OFL, there are now really three files, the kernel and modules as well as an 'optional' 2gb .img, the kernel .config requires tweaking to include the proper drivers to function, I'm currently testing this virtually and it appears to pass secure boot.
+Runs on any UEFI computer (PC or Mac) with minimal effort. Since this project has diverged a bit from the original OFL, there are now really three files, the kernel and modules as well as an 'optional' 2gb .img, the kernel .config requires tweaking to include the proper drivers to function, I'm currently testing this virtually and it appears to pass secure boot, I've not quite landed on the BuildRoot .config yet.
 
 <img width=600 alt="One File Linux" src="https://hub.zhovner.com/img/one-file-linux.png" />
 
@@ -146,6 +146,8 @@ The build will default to "CFLAGS=-march=native -mcpu=native -mtune=native" and 
 
 Buildroot handles grabbing the kernel sources and the linux/ that used to live here is now a symlink to the buildroot output directory.
 I optet to symlink buildroot/dl/linux/git/.git to linux/.git , hopefully to aid rapid development , as the sources buildroot actuelly uses to build are in buildroot/output/build/linux-main_ofl/ - setup.sh is suppsed to run sometime after buildroot has gotten the sources and symlink this in place?
+
+So far _harden_malloc_ and _Fil-C - llvm-project-deluge_ are not used, i wanted to keep it glibc compatible, but I've not quite landed on the configuration of BuildRoot at this time and i suppose rebuilding libc and openssl etc. could be fun down the line.
 
 Requires the Debian package: libelf-dev libopenssl-dev
 
