@@ -1,7 +1,7 @@
 ## One File Linux
 This will attempt to provide a configurable 'minimal' Buildroot Linux userland toolset and a mainline Linux kernel with patches from [GraphenOS's](https://github.com/GrapheneOS/linux-hardened), how much space your end .efi file depends on what you include and is limited by the FS the .efi lives on, with say Rufus NTFS .efi driver and similar, you could run (or save) your life from it.
 
-Runs on any UEFI computer (PC or Mac) without installation. Just copy the .efi file to ESD/EFI system partition and boot.
+Runs on any UEFI computer (PC or Mac) with minimal effort. Since this project has diverged a bit from the original OFL, there are now really three files, the kernel and modules as well as an 'optional' 2gb .img, the kernel .config requires tweaking to include the proper drivers to function, I'm currently testing this virtually and it appears to pass secure boot.
 
 <img width=600 alt="One File Linux" src="https://hub.zhovner.com/img/one-file-linux.png" />
 
