@@ -17,3 +17,4 @@
 [submodule "pkgsrc"]
 	path = pkgsrc
 	url = https://github.com/threader/pkgsrc
+	branch = ofl_pkgsrc
