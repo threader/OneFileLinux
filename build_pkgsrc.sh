@@ -1,9 +1,10 @@
 #!/bin/bash
 # Do i even remember any of this!?
 #
-BUILDROOT_OUT=$PWD/buildroot/output/staging/
+BUILDROOT_OUT="$PWD/buildroot/output/staging/"
 
-# 
+# I once modified pkgsrc/bootstrap/bootstrap appended the following to 
+# ${TARGET_MKCONF} and ${BOOTSTRAP_MKCONF} 
 export PKGSRC_COMPILER=cchache clang
 export HAVE_LLVM=yes
 

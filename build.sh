@@ -4,7 +4,10 @@ set -e
 
 # RootFS variables
 #ROOTFS="alpine-minirootfs"
+OFL_ROOT="$PWD"
 BUILDROOT="$PWD/buildroot"
+PKGSRC_DIR="$PWD/pkgsrc"
+LLVM_DELUGE_DIR="$PWD/llvm-project-deluge"
 ROOTFS="$PWD/$BUILDROOT/output/target"
 CACHEPATH="$ROOTFS/var/cache/apk/"
 SHELLHISTORY="$ROOTFS/root/.ash_history"
@@ -51,8 +54,30 @@ if [ ! -e $BUILDROOT/.config ]; then
     echo -e "ERROR: no buildroot/.config found, copy "$(PWD)"/cfg/buildroot_x86_64 or run 'make manuconfig' in buildroot to create your own!"
     exit 1
  else
+# this was supposed to be a setup file
 . setup.sh
+
+# I guess this is where it get's interesting
+#
+# Build hardened llvm 
+cd $LLVM_DELUGE_DIR
+./setup_gits.sh
+#./build_all.sh
+./build_all_fast.sh
+./build_zlib.sh
+./build_bzip2.sh
+./build_xz.sh
+./build_jpeg-6b.sh
+./build_openssl.sh
+./build_curl.sh
+./build_openssh.sh
+./build_cpython.sh
+./build_zsh.sh
+# Buildroot, not setup to use llvm-deluge - Still to figure out conifg
 cd $BUILDROOT; make -j$THREADS
+# pkgsrc - uuhm, chroot to buildroot output dir and build?
+# cd $OFL_ROOT
+# ./build_pkgsrc.sh
 fi
 
 #
