@@ -11,7 +11,7 @@ export HAVE_X11=yes
 export X_CFLAGS="-I$BUILDROOT_OUT/usr/include -D_REENTRANT"
 export X_LIBS="-Wl,-R$BUILDROOT_OUT/usr/lib -lX11"
 
-cd bootstrap && 
+cd pkgsrc/bootstrap && 
 ./bootstrap \
 --cwrappers=no \
 --unprivileged \
