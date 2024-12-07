@@ -14,3 +14,6 @@
 [submodule "llvm-project-deluge"]
 	path = llvm-project-deluge
 	url = https://github.com/pizlonator/llvm-project-deluge.git
+[submodule "pkgsrc"]
+	path = pkgsrc
+	url = https://github.com/threader/pkgsrc
