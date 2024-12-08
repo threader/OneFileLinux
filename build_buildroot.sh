@@ -1,0 +1,4 @@
+cd buildroot/ &
+make HOST_CFLAGS="$HOST_CFLAGS -march=native -mcpu=native -mtune=native -D_GLIBCXX_ASSERTIONS -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -fstack-clash-protection -param stack-clash-protection-guard-size= 20 -fcf-protection=full -Wl,-z,nodlopen-Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now -fPIE -pie -fPIC -shared -fno-delete-null-pointer-checks -ftrivial-auto-var-init=zero -fexceptions -fhardened -Whardened -Wl,--as-needed -Wl,--no-copy-dt-needed-entries -fsanitize=address -fsanitize=thread -fsanitize=leak -fsanitize=undefined -fsanitize=address -fsanitize=thread --enable-default-pie --enable-default-ssp --enable-host-pie --enable-host-bind-now"  \
+HOST_LDLAGS="$HOST_LDLAGS --disable-default-execstack --enable-warn-execstack --enable-error-execstack --enable-warn-rwx-segments --enable-error-rwx-segments --enable-relro --enable-textrel-check=error "
+
