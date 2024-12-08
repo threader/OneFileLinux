@@ -46,8 +46,7 @@ echo "   OneFileLinux.efi "
 # cd buildroot; make -j$THREADS
 # run kernel-hardening-checker if needed.
 #./kernel-hardening-checker/bin/kernel-hardening-checker -c cfg/linux_x86_64 -l /proc/cmdline -s kernel-hardening-checker/kernel_hardening_checker/config_files/distros/example_sysctls.txt
-# run the lk-reducer - the linux_x86_64 config is taken straight from Debian Testing so that will need to be configured better... 
-# configure and hopefully run
+# configure and hopefully run - well that was the plan anyway.
 
 #
 if [ ! -e $BUILDROOT/.config ]; then
@@ -59,7 +58,8 @@ if [ ! -e $BUILDROOT/.config ]; then
 
 # I guess this is where it get's interesting
 #
-# Build hardened llvm 
+# Build memory safe llvm musl and friends
+if  [ $USE_FILC != 'false' ]; then
 cd $LLVM_DELUGE_DIR
 ./setup_gits.sh
 #./build_all.sh
@@ -73,7 +73,8 @@ cd $LLVM_DELUGE_DIR
 ./build_openssh.sh
 ./build_cpython.sh
 ./build_zsh.sh
-# Buildroot, not setup to use llvm-deluge - Still to figure out conifg
+fi
+# Buildroot - Still to figure out conifg
 cd $BUILDROOT; make -j$THREADS
 # pkgsrc - uuhm, chroot to buildroot output dir and build?
 # cd $OFL_ROOT
