@@ -8,16 +8,17 @@
 [submodule "hardened_malloc"]
 	path = hardened_malloc
 	url = https://github.com/GrapheneOS/hardened_malloc.git
-[submodule "llvm-project-deluge"]
-	path = llvm-project-deluge
-	url = https://github.com/pizlonator/llvm-project-deluge.git
+[submodule "fil-c"]
+	path = fil-c
+	url = https://github.com/pizlonator/fil-c
 [submodule "pkgsrc"]
 	path = pkgsrc
 	url = https://github.com/threader/pkgsrc
 	branch = ofl_pkgsrc
 [submodule "debian"]
-	path = linux
+	path = debian
 	url = https://salsa.debian.org/kernel-team/linux.git
+	branch = debian/latest
 [submodule "linux"]
 	path = linux
 	url = https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/
