@@ -1,0 +1,23 @@
+commit f0c70bd00432f366c551eb7fec1affcbcbd98001
+Author: threader <michael.heltne@gmail.com>
+Date:   Thu Jul 16 04:12:18 2026 +0200
+
+    debian/rules: dont clean and rebuild on error
+
+diff --git a/debian/rules b/debian/rules
+index 1f421dcad1..67dc779638 100755
+--- a/debian/rules
++++ b/debian/rules
+@@ -119,9 +119,9 @@ maintainerclean: clean-generated
+ 	rm -rf $(filter-out debian .git, $(wildcard * .[^.]*))
+ 
+ clean: debian/control
+-	dh_testdir
+-	rm -rf $(CLEAN_PATTERNS)
+-	dh_clean
++#	dh_testdir
++#	rm -rf $(CLEAN_PATTERNS)
++#	dh_clean
+ 
+ CONTROL_FILES = $(BUILD_DIR)/version-info $(wildcard debian/templates/*.in)
+ CONTROL_FILES += debian/config/defines.toml $(wildcard debian/config/*/defines.toml)
