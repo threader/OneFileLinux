@@ -1,40 +1,52 @@
 #!/bin/bash
-OLD_PWD=$PWD
+
 DPKG_BUILD='which dpkg-buildpackage'
 # if [ -f $DPKG_BUILD ]; then
+cp $PWD/cfg/buildroot_x86_64_glibc-systemd $PWD/buildroot/.config
+cd $PWD/buildroot; make linux-source; cd ../
 
-if [ ! -d $PWD/linux/debian ]; then
-ln -s $PWD/debian/debian $PWD/linux/debian
+echo $PWD 
+
+if [ ! -L $PWD/linux ]; then
+#mkdir -p $PWD/buildroot/output/build/linux-linux-rolling-stable
+mkdir -p $PWD/buildroot/dl/linux/git/
+#ln -s $PWD/buildroot/dl/linux/git/.git $PWD/buildroot/output/build/linux-linux-rolling-stable/.git
+ln -s $PWD/buildroot/dl/linux/git $PWD/linux
+#ln -s $PWD/buildroot/output/build/linux-linux-rolling-stable/.git $PWD/linux/.git
+cd linux; git fetch; git reset --hard origin/linux-rolling-stable;
+# git gc --aggressive --prune=all
 fi
 
-if [ ! -d $PWD/linux/.git ]; then
-ln -s $PWD/buildroot/dl/linux/git/.git $PWD/linux/.git
+echo $PWD 
+
+if [ ! -L $PWD/linux/debian ]; then
+# mkdir $PWD/linux/
+echo $PWD 
+ln -s $PWD/debian/debian/ $PWD/linux/debian
+cd $PWD/linux/debian; git fetch; git reset --hard origin/debian/7.1/forky; cd ../../ # debian/latest
+echo $PWD
+cd $PWD/linux/debian; patch -p1 < $PWD/../../patches/0000_dont_clean_kernel_build_on_error.patch; cd ../../
+# git gc --aggressive --prune=all
 fi
+
+echo $PWD 
+# Configure build for the current the running pc/perhapsials 
+cp /boot/config-$(uname -r) $PWD/linux/.config
+#make localmodconfig;
+#make oldconfig;
+ARCH=$(uname -m)
+echo $PWD
+$PWD/kernel-hardening-checker/bin/kernel-hardening-checker -g "${ARCH^^}" > $PWD/cfg/config_harden_fragment
+$PWD/linux/scripts/kconfig/merge_config.sh $PWD/linux/.config $PWD/cfg/config_harden_fragment
+$PWD/kernel-hardening-checker/bin/kernel-hardening-checker -c $PWD/linux/.config
+cd $PWD/linux/ && yes ´´ | make localmodconfig && cp $PWD/.config $PWD/../cfg/current_building_kernel_config && make mrproper;
 
 #ROOT_ARCH=`uname -m`
-cd linux; git fetch; git reset --hard remotes/origin/linux-rolling-stable
-# git gc --aggressive --prune=all
-
-#if [ -f $DPKG_BUILD ]; then
-cd linux/debian; git fetch; git reset --hard debian/latest
-patch -p1 < $PWD/patches/0000_dont_clean_kernel_build_on_error.patch; 
-# git gc --aggressive --prune=all
-cd ..
-#fi
-
-# Apply Debian patches regardless 
-make -f debian/rules source;
-# Configure build for the current the running pc/perhapsials 
-#make localmodconfig; 
-make oldconfig
-$PWD/kernel-hardening-checker/bin/kernel-hardening-checker -g X86_64 > $PWD/cfg/config-harden-stub
-$PWD/linux/scripts/kconfig/merge_config.sh $PWD/.config $PWD/cfg/config-harden-stub
-$PWD/kernel-hardening-checker/bin/kernel-hardening-checker -c $PWD/linux/.config
-cp $PWD/linux/.config $PWD/cfg/current_building_kernel_config
-# yes ´´ | make menuconfig
-
 #if [ -f $DPKG_BUILD ]; then
 # dpkg-buildpackage -us -ui -uc --no-sign --build=binary --no-post-clean
 #fi
 
-cd $OLD_PWD/buildroot; make # ./build_buildroot.sh
+# Apply Debian patches regardless 
+echo $PWD
+make -f debian/rules source && 
+cd $PWD/../buildroot; make linux-rebuild # ./build_buildroot.sh
