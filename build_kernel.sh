@@ -12,6 +12,7 @@ if [ ! -L $PWD/linux ]; then
 mkdir -p $PWD/buildroot/dl/linux/git/
 #ln -s $PWD/buildroot/dl/linux/git/.git $PWD/buildroot/output/build/linux-linux-rolling-stable/.git
 ln -s $PWD/buildroot/dl/linux/git $PWD/linux
+# buildroot/dl/linux/git/.git
 #ln -s $PWD/buildroot/output/build/linux-linux-rolling-stable/.git $PWD/linux/.git
 cd linux; git fetch; git reset --hard origin/linux-rolling-stable;
 # git gc --aggressive --prune=all
@@ -48,5 +49,6 @@ cd $PWD/linux/ && yes ´´ | make localmodconfig && cp $PWD/.config $PWD/../cfg/
 
 # Apply Debian patches regardless 
 echo $PWD
-make -f debian/rules source && 
-cd $PWD/../buildroot; make linux-rebuild # ./build_buildroot.sh
+make -f debian/rules source &&
+git add *; git commit -m "debian and friends";
+cp $PWD/../cfg/buildroot_x86_64_glibc-systemd $PWD/../buildroot/.config; cp $PWD/../cfg/current_building_kernel_config $PWD/.confg; make linux-build # ./build_buildroot.sh
