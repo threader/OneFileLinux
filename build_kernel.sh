@@ -40,7 +40,7 @@ echo $PWD
 $PWD/kernel-hardening-checker/bin/kernel-hardening-checker -g "${ARCH^^}" > $PWD/cfg/config_harden_fragment
 $PWD/linux/scripts/kconfig/merge_config.sh $PWD/linux/.config $PWD/cfg/config_harden_fragment
 $PWD/kernel-hardening-checker/bin/kernel-hardening-checker -c $PWD/linux/.config
-cd $PWD/linux/ && yes ´´ | make localmodconfig && cp $PWD/.config $PWD/../cfg/current_building_kernel_config && make mrproper;
+cd $PWD/linux/ && yes ´´ | make localmodconfig && echo "CONFIG_PROFILING=n" >> $PWD/.config && cp $PWD/.config $PWD/../cfg/current_building_kernel_config && make mrproper;
 
 #ROOT_ARCH=`uname -m`
 #if [ -f $DPKG_BUILD ]; then
