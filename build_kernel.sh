@@ -14,7 +14,7 @@ mkdir -p $PWD/buildroot/dl/linux/git/
 ln -s $PWD/buildroot/dl/linux/git $PWD/linux
 # buildroot/dl/linux/git/.git
 #ln -s $PWD/buildroot/output/build/linux-linux-rolling-stable/.git $PWD/linux/.git
-cd linux; git fetch; git reset --hard origin/linux-rolling-stable;
+cd linux; git fetch; git reset --hard linux-next-master;
 # git gc --aggressive --prune=all
 fi
 
@@ -24,7 +24,7 @@ if [ ! -L $PWD/linux/debian ]; then
 # mkdir $PWD/linux/
 echo $PWD 
 ln -s $PWD/debian/debian/ $PWD/linux/debian
-cd $PWD/linux/debian; git fetch; git reset --hard origin/debian/7.1/forky; cd ../../ # debian/latest
+cd $PWD/linux/debian; git fetch; git reset --hard origin/debian/7.2_rc3-1_exp1; cd ../../ # debian/latest
 echo $PWD
 cd $PWD/linux/debian; patch -p1 < $PWD/../../patches/0000_dont_clean_kernel_build_on_error.patch; cd ../../
 # git gc --aggressive --prune=all
@@ -49,6 +49,12 @@ cd $PWD/linux/ && yes ´´ | make localmodconfig && echo "CONFIG_PROFILING=n" >>
 
 # Apply Debian patches regardless 
 echo $PWD
-make -f debian/rules source &&
-git add *; git commit -m "debian and friends";
+# make -f debian/rules source &&
+
+#git add *; git commit -m "debian and friends";
+git clone https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/; cd linux-firmware; ./copy_packages.py -v /usr/lib/firmware; ../
+make -f debian/rules source &&  cp $PWD/../cfg/current_building_kernel_config .config && make deb-pkg 
+yes ´´ | make localmodconfig $PWD/../kernel-hardening-checker/bin/kernel-hardening-checker -c $PWD/.config > .config_hard  $PWD/scripts/kconfig/merge_config.sh $PWD/.config
+
+# build the buildroot 
 cp $PWD/../cfg/buildroot_x86_64_glibc-systemd $PWD/../buildroot/.config; cp $PWD/../cfg/current_building_kernel_config $PWD/.confg; make linux-build # ./build_buildroot.sh
