@@ -19,7 +19,7 @@
 [submodule "debian"]
 	path = debian
 	url = https://salsa.debian.org/kernel-team/linux.git
-	branch = debian/latest
+	branch = debian/7.2_rc3-1_exp1
 [submodule "fil-c"]
 	path = fil-c
 	url = https://github.com/pizlonator/fil-c
