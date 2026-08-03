@@ -1,0 +1,19 @@
+--- output/build/host-qemu-11.0.0/include/hw/xen/xen_native.h.org	2026-08-03 23:37:27.890697560 +0200
++++ output/build/host-qemu-11.0.0/include/hw/xen/xen_native.h	2026-08-03 21:51:22.395035570 +0200
+@@ -523,7 +523,7 @@
+     return xendevicemodel_set_ioreq_server_state(xen_dmod, dom, ioservid,
+                                                  enable);
+ }
+-
++#if 0
+ #if CONFIG_XEN_CTRL_INTERFACE_VERSION < 41500
+ static inline int xendevicemodel_set_irq_level(xendevicemodel_handle *dmod,
+                                                domid_t domid, uint32_t irq,
+@@ -532,6 +532,7 @@
+     return -1;
+ }
+ #endif
++#endif
+ 
+ #if CONFIG_XEN_CTRL_INTERFACE_VERSION < 41700
+ #define GUEST_VIRTIO_MMIO_BASE   xen_mk_ullong(0x02000000) 
