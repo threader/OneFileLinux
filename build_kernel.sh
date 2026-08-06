@@ -2,7 +2,7 @@
 
 DPKG_BUILD='which dpkg-buildpackage'
 # if [ -f $DPKG_BUILD ]; then
-cp $PWD/cfg/buildroot_x86_64_glibc-systemd $PWD/buildroot/.config
+cp $PWD/cfg/buildroot_x86_64_glibc-systemd_2 $PWD/buildroot/.config
 cd $PWD/buildroot; make linux-source; cd ../
 
 echo $PWD 
@@ -11,10 +11,10 @@ if [ ! -L $PWD/linux ]; then
 #mkdir -p $PWD/buildroot/output/build/linux-linux-rolling-stable
 mkdir -p $PWD/buildroot/dl/linux/git/
 #ln -s $PWD/buildroot/dl/linux/git/.git $PWD/buildroot/output/build/linux-linux-rolling-stable/.git
-ln -s $PWD/buildroot/dl/linux/git $PWD/linux
+ln -s $PWD/buildroot/dl/linux/git $PWD/linux/
 # buildroot/dl/linux/git/.git
 #ln -s $PWD/buildroot/output/build/linux-linux-rolling-stable/.git $PWD/linux/.git
-cd linux; git fetch; git reset --hard linux-next-master;
+cd linux; git clone -b linux-next-master https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git git fetch; git reset --hard linux-next-master;
 # git gc --aggressive --prune=all
 fi
 
@@ -26,7 +26,7 @@ if [ ! -L $PWD/linux/debian ]; then
 ln -s $PWD/debian/debian/ $PWD/linux/debian
 cd $PWD/linux/debian; git fetch; git reset --hard origin/debian/7.2_rc3-1_exp1; cd ../../ # debian/latest
 #echo $PWD
-cd $PWD/linux/debian; patch -p1 < $PWD/../../patches/0000_dont_clean_kernel_build_on_error.patch; cd ../../
+# cd $PWD/linux/debian; patch -p1 < $PWD/../../patches/0000_dont_clean_kernel_build_on_error.patch; cd ../../
 # git gc --aggressive --prune=all
 fi
 
@@ -38,10 +38,9 @@ fi
 ARCH=$(uname -m)
 # echo $PWD
 $PWD/kernel-hardening-checker/bin/kernel-hardening-checker -g "${ARCH^^}" > $PWD/cfg/config_harden_fragment
-$PWD/linux/scripts/kconfig/merge_config.sh $PWD/linux/.config $PWD/cfg/config_harden_fragment
-cd $PWD/linux/ && yes ´´ | make localmodconfig && cp $PWD/.config $PWD/../cfg/current_building_kernel_config;
-# $PWD/kernel-hardening-checker/bin/kernel-hardening-checker -c $PWD/linux/.config
-make mrproper;
+cd $PWD/linux/ && make localyesconfig && cd ../ && $PWD/linux/scripts/kconfig/merge_config.sh -m $PWD/linux/.config $PWD/cfg/config_harden_fragment && mv $PWD/.config $PWD/cfg/current_building_kernel_config;
+# $PWD/kernel-hardening-checker/bin/kernel-hardening-checker -c $PWD/cfg/current_building_kernel_config
+# make mrproper;
 
 #ROOT_ARCH=`uname -m`
 #if [ -f $DPKG_BUILD ]; then
@@ -55,9 +54,9 @@ make mrproper;
 
 # git clone https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/; cd linux-firmware; ./copy_packages.py -v /usr/lib/firmware; ../
 
-make -f debian/rules source; # &&  cp $PWD/../cfg/current_building_kernel_config .config # && make deb-pkg 
+cd linux/ && make -f debian/rules source; # &&  cp $PWD/../cfg/current_building_kernel_config .config # && make deb-pkg 
 # yes ´´ | make localmodconfig && $PWD/../kernel-hardening-checker/bin/kernel-hardening-checker -c $PWD/.config > .config_hard  $PWD/scripts/kconfig/merge_config.sh $PWD/.config
 cd ..
 
 # build the buildroot 
-cp $PWD/cfg/buildroot_x86_64_glibc-systemd_1 $PWD/buildroot/.config && cd $PWD/buildroot && make linux-build # ./build_buildroot.sh
+cp $PWD/cfg/buildroot_x86_64_glibc-systemd_2 $PWD/buildroot/.config && cd $PWD/buildroot && make linux-build # ./build_buildroot.sh
