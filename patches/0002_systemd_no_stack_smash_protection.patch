@@ -1,0 +1,11 @@
+--- systemd.mk.org	2026-08-06 17:55:25.199305779 +0200
++++ systemd.mk	2026-08-03 23:33:31.397959094 +0200
+@@ -110,7 +110,7 @@
+ 	-Dxenctrl=disabled \
+ 	-Dlibmount=enabled
+ 
+-SYSTEMD_CFLAGS = $(TARGET_CFLAGS)
++SYSTEMD_CFLAGS = $(TARGET_CFLAGS) -fno-stack-protector
+ ifeq ($(BR2_OPTIMIZE_FAST),y)
+ SYSTEMD_CFLAGS += -O3 -fno-finite-math-only
+ endif
