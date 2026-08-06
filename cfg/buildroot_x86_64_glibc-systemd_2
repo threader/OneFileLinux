@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot 2026.05-618-g33608902b8 Configuration
+# Buildroot 2026.05-635-g7b81debb1f Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 BR2_HOST_GCC_AT_LEAST_4_9=y
@@ -505,12 +505,12 @@ BR2_LINUX_NEEDS_MODULES=y
 BR2_LINUX_KERNEL_CUSTOM_GIT=y
 # BR2_LINUX_KERNEL_CUSTOM_HG is not set
 # BR2_LINUX_KERNEL_CUSTOM_SVN is not set
-BR2_LINUX_KERNEL_CUSTOM_REPO_URL="https://github.com/threader/linux"
+BR2_LINUX_KERNEL_CUSTOM_REPO_URL="https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git"
 BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION="linux-next-master"
 # BR2_LINUX_KERNEL_CUSTOM_REPO_GIT_SUBMODULES is not set
 BR2_LINUX_KERNEL_VERSION="linux-next-master"
 BR2_LINUX_KERNEL_LICENSE_FILES="COPYING LICENSES/preferred/GPL-2.0 LICENSES/exceptions/Linux-syscall-note"
-BR2_LINUX_KERNEL_PATCH=""
+BR2_LINUX_KERNEL_PATCH="$PWD/../patches/0001_dont_clean_and_remove_debian_dir.patch"
 # BR2_LINUX_KERNEL_USE_DEFCONFIG is not set
 # BR2_LINUX_KERNEL_USE_ARCH_DEFAULT_CONFIG is not set
 BR2_LINUX_KERNEL_USE_CUSTOM_CONFIG=y
@@ -811,6 +811,7 @@ BR2_PACKAGE_BINUTILS_TARGET=y
 # BR2_PACKAGE_CHECK is not set
 BR2_PACKAGE_CMAKE_ARCH_SUPPORTS=y
 # BR2_PACKAGE_CMAKE_CTEST is not set
+# BR2_PACKAGE_CPP_ARGPARSE is not set
 # BR2_PACKAGE_CPPUNIT is not set
 # BR2_PACKAGE_CUKINIA is not set
 # BR2_PACKAGE_CUNIT is not set
@@ -2054,7 +2055,6 @@ BR2_PACKAGE_LUAJIT=y
 #
 # Lua libraries/modules
 #
-# BR2_PACKAGE_ARGPARSE is not set
 # BR2_PACKAGE_CGILUA is not set
 # BR2_PACKAGE_COPAS is not set
 # BR2_PACKAGE_COXPCALL is not set
@@ -5082,6 +5082,7 @@ BR2_PACKAGE_HOST_ZSTD=y
 #
 # Legacy options removed in 2026.08
 #
+# BR2_PACKAGE_ARGPARSE is not set
 # BR2_KERNEL_HEADERS_7_0 is not set
 # BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_SAP is not set
 # BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_HEALTH is not set
