@@ -9,12 +9,16 @@ echo $PWD
 
 if [ ! -L $PWD/linux ]; then
 #mkdir -p $PWD/buildroot/output/build/linux-linux-rolling-stable
-mkdir -p $PWD/buildroot/dl/linux/git/
+mkdir -p $PWD/buildroot/dl/linux/git/.git
+mkdir -p $PWD/buildroot/output/build/linux-linux-next-master
 #ln -s $PWD/buildroot/dl/linux/git/.git $PWD/buildroot/output/build/linux-linux-rolling-stable/.git
-ln -s $PWD/buildroot/dl/linux/git $PWD/linux/
+ln -s $PWD/buildroot/output/build/linux-linux-next-master $PWD/linux/
+#ln -s $PWD/buildroot/dl/linux/git/.git $PWD/linux/.git
+
 # buildroot/dl/linux/git/.git
 #ln -s $PWD/buildroot/output/build/linux-linux-rolling-stable/.git $PWD/linux/.git
-cd linux; git clone -b linux-next-master https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git git fetch; git reset --hard linux-next-master;
+cd linux; git clone -b linux-next-master https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git; git fetch; git reset --hard linux-next-master;
+mv .git $PWD/buildroot/dl/linux/git/.git
 # git gc --aggressive --prune=all
 fi
 
@@ -24,9 +28,9 @@ if [ ! -L $PWD/linux/debian ]; then
 # mkdir $PWD/linux/
 #echo $PWD 
 ln -s $PWD/debian/debian/ $PWD/linux/debian
-cd $PWD/linux/debian; git fetch; git reset --hard origin/debian/7.2_rc3-1_exp1; cd ../../ # debian/latest
+cd $PWD/linux/debian; git fetch; git reset --hard origin/debian/latest;
 #echo $PWD
-# cd $PWD/linux/debian; patch -p1 < $PWD/../../patches/0000_dont_clean_kernel_build_on_error.patch; cd ../../
+patch -p1 < $PWD/../../patches/0000_dont_clean_kernel_build_on_error.patch; cd ../../
 # git gc --aggressive --prune=all
 fi
 
@@ -38,7 +42,7 @@ fi
 ARCH=$(uname -m)
 # echo $PWD
 $PWD/kernel-hardening-checker/bin/kernel-hardening-checker -g "${ARCH^^}" > $PWD/cfg/config_harden_fragment
-cd $PWD/linux/ && make localyesconfig && cd ../ && $PWD/linux/scripts/kconfig/merge_config.sh -m $PWD/linux/.config $PWD/cfg/config_harden_fragment && mv $PWD/.config $PWD/cfg/current_building_kernel_config;
+cd $PWD/linux/ && yes "" | make localyesconfig && cd ../ && $PWD/linux/scripts/kconfig/merge_config.sh -m $PWD/linux/.config $PWD/cfg/config_harden_fragment && mv $PWD/.config $PWD/cfg/current_building_kernel_config;
 # $PWD/kernel-hardening-checker/bin/kernel-hardening-checker -c $PWD/cfg/current_building_kernel_config
 # make mrproper;
 
