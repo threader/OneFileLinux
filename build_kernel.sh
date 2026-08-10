@@ -26,7 +26,7 @@ fi
 
 if [ ! -L $PWD/linux/debian ]; then
 # mkdir $PWD/linux/
-#echo $PWD 
+#echo $PWD
 ln -s $PWD/debian/debian/ $PWD/linux/debian
 cd $PWD/linux/debian; git fetch; git reset --hard origin/debian/latest;
 #echo $PWD
@@ -42,7 +42,7 @@ fi
 ARCH=$(uname -m)
 # echo $PWD
 $PWD/kernel-hardening-checker/bin/kernel-hardening-checker -g "${ARCH^^}" > $PWD/cfg/config_harden_fragment
-cd $PWD/linux/ && yes "" | make localyesconfig && cd ../ && $PWD/linux/scripts/kconfig/merge_config.sh -m $PWD/linux/.config $PWD/cfg/config_harden_fragment && mv $PWD/.config $PWD/cfg/current_building_kernel_config;
+cd $PWD/linux/ && yes "" | make localyesconfig && make menuconfig && echo "CONFIG_CMDLINE_BOOL=y" >> .config && echo "CONFIG_CMDLINE="root=/dev/ram0"" >> .config && cd ../ && $PWD/linux/scripts/kconfig/merge_config.sh -m $PWD/linux/.config $PWD/cfg/config_harden_fragment && mv $PWD/linux/.config $PWD/cfg/current_building_kernel_config;
 # $PWD/kernel-hardening-checker/bin/kernel-hardening-checker -c $PWD/cfg/current_building_kernel_config
 # make mrproper;
 
