@@ -2,10 +2,13 @@
 
 DPKG_BUILD='which dpkg-buildpackage'
 # if [ -f $DPKG_BUILD ]; then
-cp $PWD/cfg/buildroot_x86_64_glibc-systemd_2 $PWD/buildroot/.config
-cd $PWD/buildroot; make linux-source; cd ../
+#cp $PWD/cfg/buildroot_x86_64_glibc-systemd_2 $PWD/buildroot/.config
+if [ ! -f $PWD/buildroot/.config ]; then
+echo "no $PWD/buildroot/.config found, copy the corresponding $PWD/cfg/ and try again, bailing"
+break
+fi
 
-echo $PWD 
+cd $PWD/buildroot; make linux-source; cd ../
 
 if [ ! -L $PWD/linux ]; then
 #mkdir -p $PWD/buildroot/output/build/linux-linux-rolling-stable
@@ -21,8 +24,6 @@ cd linux; git clone -b linux-next-master https://git.kernel.org/pub/scm/linux/ke
 mv .git $PWD/buildroot/dl/linux/git/.git
 # git gc --aggressive --prune=all
 fi
-
-#echo $PWD 
 
 if [ ! -L $PWD/linux/debian ]; then
 # mkdir $PWD/linux/
@@ -40,9 +41,13 @@ fi
 #make localmodconfig;
 #make oldconfig;
 ARCH=$(uname -m)
-# echo $PWD
+
 $PWD/kernel-hardening-checker/bin/kernel-hardening-checker -g "${ARCH^^}" > $PWD/cfg/config_harden_fragment
-cd $PWD/linux/ && yes "" | make localyesconfig && make menuconfig && echo "CONFIG_CMDLINE_BOOL=y" >> .config && echo "CONFIG_CMDLINE="root=/dev/ram0"" >> .config && cd ../ && $PWD/linux/scripts/kconfig/merge_config.sh -m $PWD/linux/.config $PWD/cfg/config_harden_fragment && mv $PWD/linux/.config $PWD/cfg/current_building_kernel_config;
+cd $PWD/linux/ && yes "" | make localyesconfig && make menuconfig &&
+echo "CONFIG_CMDLINE_BOOL=y" >> .config &&
+echo "CONFIG_CMDLINE="root=/dev/ram0"" >> .config &&
+echo "CONFIG_FB_EFI="y"" >> .config &&
+cd ../ && $PWD/linux/scripts/kconfig/merge_config.sh -m $PWD/linux/.config $PWD/cfg/config_harden_fragment && mv $PWD/linux/.config $PWD/cfg/current_building_kernel_config;
 # $PWD/kernel-hardening-checker/bin/kernel-hardening-checker -c $PWD/cfg/current_building_kernel_config
 # make mrproper;
 
