@@ -1,0 +1,21 @@
+--- src/corelib/global/qfloat16_f16c.c.orig	2026-08-12 13:47:10.465352163 +0200
++++ src/corelib/global/qfloat16_f16c.c	2026-08-12 13:48:38.121699525 +0200
+@@ -47,7 +47,7 @@
+ QT_BEGIN_NAMESPACE
+ extern "C" {
+ #endif
+-
++#if 0
+ QT_FUNCTION_TARGET(F16C)
+ void qFloatToFloat16_fast(quint16 *out, const float *in, qsizetype len) Q_DECL_NOEXCEPT
+ {
+@@ -79,7 +79,7 @@
+     for (epilog_i = 0; i < len && epilog_i < 3; ++i, ++epilog_i)
+         out[i] = _mm_cvtss_f32(_mm_cvtph_ps(_mm_cvtsi32_si128(in[i])));
+ }
+-
++#endif
+ #ifdef __cplusplus
+ } // extern "C"
+ QT_END_NAMESPACE
+
