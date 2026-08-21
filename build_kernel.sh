@@ -28,10 +28,14 @@ fi
 if [ ! -L $PWD/linux/debian ]; then
 # mkdir $PWD/linux/
 #echo $PWD
-ln -s $PWD/debian/debian/ $PWD/linux/debian
-cd $PWD/linux/debian; git fetch; git reset --hard origin/debian/latest;
+git rm debian
+git remote add debian https://salsa.debian.org/kernel-team/linux.git
+gif fetch debian
+git merge debian/debian/latest --allow-unrelated-histories
+#ln -s $PWD/debian/debian/ $PWD/linux/debian
+#cd $PWD/linux/debian; git -f fetch; git reset --hard origin/debian/latest; cd../
+patch -p1 < $PWD/../../patches/0000_dont_clean_kernel_build_on_error.patch; cd ../
 #echo $PWD
-patch -p1 < $PWD/../../patches/0000_dont_clean_kernel_build_on_error.patch; cd ../../
 # git gc --aggressive --prune=all
 fi
 
@@ -44,7 +48,7 @@ ARCH=$(uname -m)
 
 $PWD/kernel-hardening-checker/bin/kernel-hardening-checker -g "${ARCH^^}" > $PWD/cfg/config_harden_fragment
 cd $PWD/linux/ && yes "" | make localyesconfig && make menuconfig &&
-echo "CONFIG_CMDLINE_BOOL=y" >> .config &&
+echo "CONFIG_CMDLINE_BOOL=y" >> .config &&					
 echo "CONFIG_CMDLINE="root=/dev/ram0"" >> .config &&
 echo "CONFIG_FB_EFI="y"" >> .config &&
 cd ../ && $PWD/linux/scripts/kconfig/merge_config.sh -m $PWD/linux/.config $PWD/cfg/config_harden_fragment && mv $PWD/linux/.config $PWD/cfg/current_building_kernel_config;
@@ -53,7 +57,22 @@ cd ../ && $PWD/linux/scripts/kconfig/merge_config.sh -m $PWD/linux/.config $PWD/
 
 #ROOT_ARCH=`uname -m`
 #if [ -f $DPKG_BUILD ]; then
-# dpkg-buildpackage -us -ui -uc --no-sign --build=binary --no-post-clean
+# quilt push -a -f 
+# quilt refresh 
+# quilt pop -a -f 
+# quilt push -a -f 
+# make localyesconfig 
+# mv .config debian/config/config.yesconfig
+# cp debian/config/config debian/config/config.orig
+## $PWD/linux/scripts/kconfig/merge_config.sh debian/config/config debian/config/config.yesconfig
+## cp debian/config/config.yesconfig debian/config/config
+# cp debian/config/"${ARCH}"/config debian/config/"${ARCH}"/config.orig
+# $PWD/linux/scripts/kconfig/merge_config.sh  debian/config/"${ARCH}" $PWD/../cfg/config_harden_fragment
+# mv debian debian.real
+# make clean
+# make bindeb-pkg
+## make deb-pkg 
+## dpkg-buildpackage-build=binary --no-post-clean
 #fi
 
 # Apply Debian patches regardless 
