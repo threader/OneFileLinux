@@ -1,4 +1,4 @@
---- output/build/host-qemu-11.0.0/include/hw/xen/xen_native.h.orig	2026-08-12 18:30:29.035475704 +0200
+--- output/build/host-qemu-11.0.0/include/hw/xen/xen_native.h	2026-08-12 18:30:29.035475704 +0200
 +++ output/build/host-qemu-11.0.0/include/hw/xen/xen_native.h	2026-08-12 18:38:00.361207406 +0200
 @@ -523,7 +523,7 @@
      return xendevicemodel_set_ioreq_server_state(xen_dmod, dom, ioservid,
