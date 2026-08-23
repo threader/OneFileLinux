@@ -62,17 +62,20 @@ cd ../ && $PWD/linux/scripts/kconfig/merge_config.sh -m $PWD/linux/.config $PWD/
 # quilt pop -a -f 
 # quilt push -a -f 
 # make localyesconfig 
-# mv .config debian/config/config.yesconfig
-# cp debian/config/config debian/config/config.orig
-## $PWD/linux/scripts/kconfig/merge_config.sh debian/config/config debian/config/config.yesconfig
-## cp debian/config/config.yesconfig debian/config/config
-# cp debian/config/"${ARCH}"/config debian/config/"${ARCH}"/config.orig
-# $PWD/linux/scripts/kconfig/merge_config.sh  debian/config/"${ARCH}" $PWD/../cfg/config_harden_fragment
-# mv debian debian.real
+# mv .config debian/config/${ARCH}"/yes-config
+# cp debian/config/${ARCH}"/config debian/config/${ARCH}"/orig-config
+# $PWD/../kernel-hardening-checker/bin/kernel-hardening-checker-g "${ARCH^^}" debian/config/"${ARCH}"/hard-config
+# $PWD/linux/scripts/kconfig/merge_config.sh debian/config/${ARCH}"/hard-config debian/config/yes-config
+# mv .config debian/config/${ARCH}"/config
+## cp debian/config/"${ARCH}"/config debian/config/"${ARCH}"/orig-config
+## $PWD/linux/scripts/kconfig/merge_config.sh  debian/config/"${ARCH}" $PWD/../cfg/config_harden_fragment
+## mv debian debian.real
 # make clean
-# make bindeb-pkg
+## make bindeb-pkg
 ## make deb-pkg 
-## dpkg-buildpackage-build=binary --no-post-clean
+# MAKEFLAGS="-j$(nproc)" make -f debian/rules.gen binary-arch_amd64 #  binary-indep_none_headers-common binary-arch_amd64_none_amd64_binary
+## MAKEFLAGS="-j$(nproc)" dpkg-buildpackage -b -uc
+## dpkg-buildpackage -build=binary --no-post-clean
 #fi
 
 # Apply Debian patches regardless 
